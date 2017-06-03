@@ -72,10 +72,10 @@ namespace SEApp
                 Window.Current.Activate();
 
 
-                SieveMain sieve = new SieveMain();
-                const int twoGig = 2147483591; // magic number from .NET
+                //SieveMain sieve = new SieveMain();
+                //const int twoGig = 2147483591; // magic number from .NET
                 //sieve.ComputePrimes( twoGig-2 );
-                sieve.ComputePrimes( 2000000000 );
+                //sieve.ComputePrimes( 2000000000 );
             }
         }
 

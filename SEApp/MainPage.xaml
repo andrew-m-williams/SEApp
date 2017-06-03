@@ -8,6 +8,13 @@
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Button x:Name="CalcButton" Content="Calculate" HorizontalAlignment="Left" Margin="244,452,0,0" VerticalAlignment="Top" RenderTransformOrigin="-1.605,1.172" Click="CalcButton_Click"/>
+        <TextBox x:Name="InputText" HorizontalAlignment="Left" Margin="125,415,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" TextChanged="TextBox_TextChanged" InputScope="Digits" PlaceholderText="Upper bound..."/>
+        <TextBlock x:Name="DescText" HorizontalAlignment="Left" Margin="125,390,0,0" TextWrapping="Wrap" Text="Enter the number of primes to compute" VerticalAlignment="Top"/>
+        <TextBlock x:Name="TitleBlock" HorizontalAlignment="Left" Margin="125,115,0,0" TextWrapping="Wrap" Text="Sieve of Eratosthenes" VerticalAlignment="Top" Style="{StaticResource HeaderTextBlockStyle}"/>
+        <TextBox x:Name="DirPathBox" HorizontalAlignment="Left" Margin="125,312,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="360" PlaceholderText="File path..."/>
+        <CheckBox x:Name="DirCheckBox" HorizontalAlignment="Left" Margin="125,275,0,0" VerticalAlignment="Top" Content="Output to Directory:" Checked="DirCheckBox_Checked"/>
+        <Button x:Name ="BrowseButton" Content="Browse..." HorizontalAlignment="Left" Margin="490,311,0,0" VerticalAlignment="Top" Click="BrowseButton_Click"/>
 
     </Grid>
 </Page>

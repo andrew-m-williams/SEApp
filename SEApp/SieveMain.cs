@@ -12,7 +12,7 @@ namespace SEApp
         //private string strResult;
         //private SortedSet<int> m_generatedNums = new SortedSet<int>();
 
-        public void ComputePrimes( int upperBound )
+        public List<int> ComputePrimes( int upperBound )
         {
             //int[] primeNums = new int[upperBound+1];
             List<int> primeNums = new List<int>();
@@ -52,6 +52,8 @@ namespace SEApp
                     primeNums.Add( i );
                 }
             }
+
+            return primeNums;
             //int[] generatedNums = Enumerable.Range( 2, upperBound ).ToArray<int>();
 
         }
