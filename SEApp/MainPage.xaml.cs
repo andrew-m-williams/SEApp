@@ -39,11 +39,11 @@ namespace SEApp
             // Get the user-input value stored in the text box
             m_inputValue = Convert.ToInt32( InputText.Text );
 
-            // Run the Sieve algorithm using the value
-            List<int> primeNums = m_sieve.ComputePrimes( m_inputValue );
+            // Run the improved segmented Sieve algorithm using the input value
+            List<int> primeNums = m_sieve.ComputePrimesSegmented( m_inputValue );
 
             // If the DirCheckBox is checked, output data to text file in file path
-            if( DirCheckBox.IsChecked.HasValue )
+            if( DirCheckBox.IsChecked.Value )
             {
                 string timeStamp = DateTime.Now.ToString( "yyyyMMddHHmmss" );
                 string fileName = "outputData_" + timeStamp + ".txt";
@@ -56,7 +56,6 @@ namespace SEApp
                 List<string> strData = (from i in primeNums select i.ToString()).ToList();
                 primeNums.Clear();
                 await FileIO.WriteLinesAsync( file, strData );
-
             }
         }
 
@@ -64,10 +63,10 @@ namespace SEApp
         {
         }
 
-        private void DirCheckBox_Checked( object sender, RoutedEventArgs e )
+        private void DirCheckBox_Click( object sender, RoutedEventArgs e )
         {
             // If the user has not checked to output the file 
-            if( !DirCheckBox.IsChecked.HasValue )
+            if( !DirCheckBox.IsChecked.Value )
             {
                 // Disable the DirPathBox and the BrowseButton
                 DirPathBox.IsEnabled = false;
@@ -100,5 +99,7 @@ namespace SEApp
                 DirPathBox.Text = m_dirPath;
             }
         }
+
+
     }
 }
