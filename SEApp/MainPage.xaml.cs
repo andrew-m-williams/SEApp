@@ -40,7 +40,6 @@ namespace SEApp
             m_inputValue = Convert.ToInt32( InputText.Text );
 
             // Run the improved segmented Sieve algorithm using the input value
-            //List<int> primeNums0 = m_sieve.ComputePrimesSegmented( m_inputValue );
             List<int> primeNums = m_sieve.ComputePrimesSegmentedAsync( m_inputValue );
 
             // If the DirCheckBox is checked, output data to text file in file path

@@ -109,7 +109,7 @@ namespace SEApp
             int maxProcessors = 3;
             Task[] tasks = new Task[maxProcessors];
             bool threadsComplete = false;
-            List<List<int>> segmentsList = new List<List<int>>();
+            var segmentsList = new System.Collections.Concurrent.ConcurrentBag<List<int>>();
 
             for( int lowerBoundSegment = limit; lowerBoundSegment < maxPrime; )
             {
@@ -124,23 +124,18 @@ namespace SEApp
                 // Only spawn max parallel processes equal to maxProcessors at a time;
                 // If we're on the last segment, i.e lowerBound + limit > maxPrime, then push remaining segments
                 int lastSegmentValue = lowerBoundSegment + limit;
-                if( lastSegmentValue >= maxPrime )
-                {
-                    bool test = true;
-                }
                 if( lastSegmentValue >= maxPrime || parallelCount >= maxProcessors-1 )
                 {
                     // Once all tasks are complete, loop through segments list and push each set of primes into master container
                     Task.WaitAll( tasks );
-                    if( segmentsList.Count() < 3 )
-                    {
-                        bool test2 = true;
-                    }
                     foreach( List<int> segment in segmentsList )
-                    {
                         primeNums.AddRange( segment );
-                    }
-                    segmentsList.Clear();
+
+                    // Clear contents in ConcurrentBag<List<int>> segmentsList;
+                    List<int> emptyList;
+                    while( !segmentsList.IsEmpty )
+                        segmentsList.TryTake( out emptyList );
+
                     threadsComplete = true;
                 }
 
