@@ -14,7 +14,7 @@
         <TextBlock x:Name="TitleBlock" HorizontalAlignment="Left" Margin="125,115,0,0" TextWrapping="Wrap" Text="Sieve of Eratosthenes" VerticalAlignment="Top" Style="{StaticResource HeaderTextBlockStyle}"/>
         <TextBox x:Name="DirPathBox" HorizontalAlignment="Left" Margin="125,312,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="360" PlaceholderText="File path..."/>
         <CheckBox x:Name="DirCheckBox" HorizontalAlignment="Left" Margin="125,275,0,0" VerticalAlignment="Top" Content="Output to Directory:" Click="DirCheckBox_Click"/>
-        <Button x:Name ="BrowseButton" Content="Browse..." HorizontalAlignment="Left" Margin="490,311,0,0" VerticalAlignment="Top" Click="BrowseButton_Click"/>
+        <Button x:Name ="BrowseButton" Content="Browse..." HorizontalAlignment="Left" Margin="490,312,0,0" VerticalAlignment="Top" Click="BrowseButton_Click"/>
 
     </Grid>
 </Page>

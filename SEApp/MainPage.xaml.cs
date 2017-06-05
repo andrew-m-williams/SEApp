@@ -37,26 +37,35 @@ namespace SEApp
         private async void CalcButton_Click( object sender, RoutedEventArgs e )
         {
             // Get the user-input value stored in the text box
+            // TODO: check if valid input
             m_inputValue = Convert.ToInt32( InputText.Text );
 
-            // Run the improved segmented Sieve algorithm using the input value
+            // Display progress bar and label for calculation
+            //ProgressBarCtrl.Visibility = Visibility.Visible;
+
+            // Run the improved async segmented Sieve algorithm using the input value
             List<int> primeNums = m_sieve.ComputePrimesSegmentedAsync( m_inputValue );
+
+            // Hide progress bar and label when calculation is completed
+            //ProgressBarCtrl.Visibility = Visibility.Visible;
 
             // If the DirCheckBox is checked, output data to text file in file path
             if( DirCheckBox.IsChecked.Value )
             {
                 string timeStamp = DateTime.Now.ToString( "yyyyMMddHHmmss" );
                 string fileName = "outputData_" + timeStamp + ".txt";
-                //StorageFolder folder = await StorageFolder.GetFolderFromPathAsync( m_dirPath );
                 StorageFile file = await m_outputFolder.CreateFileAsync( fileName );
 
-                // TODO: improve writer memory performance
-                // TODO: improve list conversion performance
-                // Convert primeNums list to IEnumerable<String> to write out all lines
-                List<string> strData = (from i in primeNums select i.ToString()).ToList();
-                primeNums.Clear();
-                GC.Collect();
-                await FileIO.WriteLinesAsync( file, strData );
+                // TODO: Improve writer memory performance
+                // Instantiate a new stream write, convert int to string, and write out lines
+                using( StreamWriter sw = new StreamWriter( file.OpenStreamForWriteAsync().Result ) )
+                {
+                    foreach( int num in primeNums )
+                    {
+                        string line = num.ToString() + Environment.NewLine;
+                        await sw.WriteAsync( line );
+                    }
+                }
             }
         }
 

@@ -14,7 +14,7 @@ namespace SEApp
             
             // Loop through all numbers starting from 2 to sqrt(n)
             // Only need to go to sqrt(n) since all numbers after sqrt(n) will have been marked already
-            int maxPrimeSquareRoot = (int)Math.Floor( Math.Sqrt( maxPrime ) );
+            int maxPrimeSquareRoot = (int)Math.Floor( Math.Sqrt( maxPrime ) ) + 1;
             for( int i = 2; i < maxPrimeSquareRoot; i++ )
             {
                 // If this has yet to be marked as a non-prime number
@@ -33,6 +33,7 @@ namespace SEApp
             // Loop through all marked numbers and add the numbers to the list that are still unmarked (prime numbers)
             for( int i = 2; i < maxPrime; i++ )
             {
+                // Add all unmarked numbers (prime numbers) to the return list
                 if( !markedNums[i] )
                     primeNums.Add( i );
             }
@@ -106,7 +107,7 @@ namespace SEApp
             // i.e. last segment is defined where the lower bound of the last segment is still less than
             // the input maxPrime
             int parallelCount = 0;
-            int maxProcessors = 3;
+            int maxProcessors = Environment.ProcessorCount;
             Task[] tasks = new Task[maxProcessors];
             bool threadsComplete = false;
             var segmentsList = new System.Collections.Concurrent.ConcurrentBag<List<int>>();
@@ -119,7 +120,7 @@ namespace SEApp
 
                 //ComputeSegment( primeNums, limit, lowerBoundSegment, upperBoundSegment, maxPrime, ref primeNums );
                 tasks[parallelCount] = Task.Run( () => 
-                    segmentsList.Add( ComputeSegment( primeNumsBefore, limit, low, high, maxPrime/*, ref primeNums*/ ) ) );
+                    segmentsList.Add( ComputeSegment( primeNumsBefore, limit, low, high, maxPrime ) ) );
 
                 // Only spawn max parallel processes equal to maxProcessors at a time;
                 // If we're on the last segment, i.e lowerBound + limit > maxPrime, then push remaining segments
@@ -130,7 +131,7 @@ namespace SEApp
                     Task.WaitAll( tasks );
                     foreach( List<int> segment in segmentsList )
                         primeNums.AddRange( segment );
-
+                    
                     // Clear contents in ConcurrentBag<List<int>> segmentsList;
                     List<int> emptyList;
                     while( !segmentsList.IsEmpty )
@@ -162,8 +163,7 @@ namespace SEApp
             return primeNums;
         }
 
-
-        protected List<int> ComputeSegment( List<int> initialPrimes, int limit, int lowerBound, int upperBound, int maxPrime/*, ref List<int> primesResult*/ )
+        protected List<int> ComputeSegment( List<int> initialPrimes, int limit, int lowerBound, int upperBound, int maxPrime )
         {
             List<int> primesResult = new List<int>();
             // Create a boolean array the size of the segment + 1 to mark values that are prime numbers
