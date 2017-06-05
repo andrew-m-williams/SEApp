@@ -119,7 +119,7 @@ namespace SEApp
                 int high = upperBoundSegment;
 
                 //ComputeSegment( primeNums, limit, lowerBoundSegment, upperBoundSegment, maxPrime, ref primeNums );
-                tasks[parallelCount] = Task.Run( () => 
+                tasks[parallelCount] =  Task.Run( () => 
                     segmentsList.Add( ComputeSegment( primeNumsBefore, limit, low, high, maxPrime ) ) );
 
                 // Only spawn max parallel processes equal to maxProcessors at a time;

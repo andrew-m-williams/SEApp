@@ -20,7 +20,9 @@ using Windows.UI.Xaml.Navigation;
 namespace SEApp
 {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// The Main Page of the Sieve App; contains controls to allow
+    /// user to input values to generate primes and output data
+    /// to text file
     /// </summary>
     public sealed partial class MainPage : Page
     {
@@ -29,9 +31,20 @@ namespace SEApp
         private StorageFolder m_outputFolder;
         private SieveMain m_sieve = new SieveMain();
 
+        public string m_progressLabelText;
+
         public MainPage()
         {
             this.InitializeComponent();
+            this.InitializeControls();
+        }
+
+        public void InitializeControls()
+        {
+            ProgressBarCtrl.Visibility = Visibility.Collapsed;
+            ProgressBarLabel.Visibility = Visibility.Collapsed;
+            DirPathBox.IsEnabled = false;
+            BrowseButton.IsEnabled = false;
         }
 
         private async void CalcButton_Click( object sender, RoutedEventArgs e )
@@ -41,22 +54,26 @@ namespace SEApp
             m_inputValue = Convert.ToInt32( InputText.Text );
 
             // Display progress bar and label for calculation
-            //ProgressBarCtrl.Visibility = Visibility.Visible;
+            ProgressBarCtrl.Visibility = Visibility.Visible;
+            ProgressBarLabel.Visibility = Visibility.Visible;
+            ProgressBarLabel.Text = "Generating Prime Numbers...";
+
+            // Run empty task to update gui
+            await Task.Run( () =>
+            {
+            } );
 
             // Run the improved async segmented Sieve algorithm using the input value
             List<int> primeNums = m_sieve.ComputePrimesSegmentedAsync( m_inputValue );
 
-            // Hide progress bar and label when calculation is completed
-            //ProgressBarCtrl.Visibility = Visibility.Visible;
-
             // If the DirCheckBox is checked, output data to text file in file path
             if( DirCheckBox.IsChecked.Value )
             {
+                ProgressBarLabel.Text = "Writing data to file...";
                 string timeStamp = DateTime.Now.ToString( "yyyyMMddHHmmss" );
                 string fileName = "outputData_" + timeStamp + ".txt";
                 StorageFile file = await m_outputFolder.CreateFileAsync( fileName );
 
-                // TODO: Improve writer memory performance
                 // Instantiate a new stream write, convert int to string, and write out lines
                 using( StreamWriter sw = new StreamWriter( file.OpenStreamForWriteAsync().Result ) )
                 {
@@ -67,10 +84,15 @@ namespace SEApp
                     }
                 }
             }
-        }
 
-        private void TextBox_TextChanged( object sender, TextChangedEventArgs e )
-        {
+            // Hide progress bar and label when calculation and output is completed
+            ProgressBarLabel.Text = "Completed!";
+            ProgressBarCtrl.Visibility = Visibility.Collapsed;
+
+            // Run empty task to update gui
+            await Task.Run( () =>
+            {
+            } );
         }
 
         private void DirCheckBox_Click( object sender, RoutedEventArgs e )
@@ -91,6 +113,7 @@ namespace SEApp
         }
 
         // Async method for picking a folder to store the output to
+
         private async void BrowseButton_Click( object sender, RoutedEventArgs e )
         {
             // Create a file picker
@@ -110,6 +133,14 @@ namespace SEApp
             }
         }
 
-
+        /*
+        private void InputText_KeyDown( object sender, KeyRoutedEventArgs e )
+        {
+            if( !char.IsControl( e.KeyChar ) && !char.IsDigit( e.KeyChar ) && (e.KeyChar != '.') )
+            {
+                e.Handled = true;
+            }
+        }
+        */
     }
 }
