@@ -43,14 +43,31 @@ namespace SEApp
         {
             ProgressBarCtrl.Visibility = Visibility.Collapsed;
             ProgressBarLabel.Visibility = Visibility.Collapsed;
+            ErrorLabel.Visibility = Visibility.Collapsed;
             DirPathBox.IsEnabled = false;
             BrowseButton.IsEnabled = false;
         }
 
         private async void CalcButton_Click( object sender, RoutedEventArgs e )
         {
+            // Initially hide error label;
+            ErrorLabel.Visibility = Visibility.Collapsed;
+
+            // Check first if input string is all numerics
+            if( !IsStringAllDigits( InputText.Text ) )
+            {
+                ErrorLabel.Visibility = Visibility.Visible;
+                ErrorLabel.Text = "Please enter only numeric digits.";
+                
+                    // Run empty task to update gui
+                await Task.Run( () =>
+                {
+                } );
+
+                return;
+            }
+
             // Get the user-input value stored in the text box
-            // TODO: check if valid input
             m_inputValue = Convert.ToInt32( InputText.Text );
 
             // Display progress bar and label for calculation
@@ -133,14 +150,34 @@ namespace SEApp
             }
         }
 
-        /*
-        private void InputText_KeyDown( object sender, KeyRoutedEventArgs e )
+        private void InputText_TextChanging( TextBox sender, TextBoxTextChangingEventArgs args )
         {
-            if( !char.IsControl( e.KeyChar ) && !char.IsDigit( e.KeyChar ) && (e.KeyChar != '.') )
+            // Initially hide error label;
+            ErrorLabel.Visibility = Visibility.Collapsed;
+            /*
+            // If the user is not entering numeric digits, 
+            // display message and remove them as they type
+            double doubleTemp;
+            bool isValidDigit = double.TryParse( sender.Text, out doubleTemp );
+            if( !isValidDigit && sender.Text != "" )
             {
-                e.Handled = true;
+                int pos = sender.SelectionStart - 1;
+                sender.Text = sender.Text.Remove( pos, 1 );
+                sender.SelectionStart = pos;
             }
+            */
         }
-        */
+
+        public bool IsStringAllDigits( string text )
+        {
+            foreach( char c in text )
+            {
+                if( !char.IsDigit( c ) )
+                    return false;
+            }
+            return true;
+        }
+
+
     }
 }
