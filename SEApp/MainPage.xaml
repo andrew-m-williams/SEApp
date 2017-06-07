@@ -8,19 +8,19 @@
     x:Class="SEApp.MainPage"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button x:Name="CalcButton" Content="Calculate" HorizontalAlignment="Left" Margin="244,452,0,0" VerticalAlignment="Top" Click="CalcButton_Click"/>
-        <TextBox x:Name="InputText" HorizontalAlignment="Left" Margin="125,415,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" InputScope="Digits" PlaceholderText="Upper bound..." TextChanging="InputText_TextChanging"/>
-        <TextBlock x:Name="DescText" HorizontalAlignment="Left" Margin="125,390,0,0" TextWrapping="Wrap" Text="Enter the number of primes to compute" VerticalAlignment="Top"/>
-        <TextBlock x:Name="TitleBlock" HorizontalAlignment="Left" Margin="125,115,0,0" TextWrapping="Wrap" Text="Sieve of Eratosthenes" VerticalAlignment="Top" Style="{StaticResource HeaderTextBlockStyle}"/>
-        <TextBox x:Name="DirPathBox" HorizontalAlignment="Left" Margin="125,312,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="360" PlaceholderText="File path..."/>
-        <CheckBox x:Name="DirCheckBox" HorizontalAlignment="Left" Margin="125,275,0,0" VerticalAlignment="Top" Content="Output to Directory:" Click="DirCheckBox_Click"/>
-        <Button x:Name="BrowseButton" Content="Browse..." HorizontalAlignment="Left" Margin="490,312,0,0" VerticalAlignment="Top" Click="BrowseButton_Click"/>
-        <ProgressBar x:Name="ProgressBarCtrl" HorizontalAlignment="Left" Height="22" Margin="125,543,0,0" VerticalAlignment="Top" Width="443" IsIndeterminate="True"/>
-        <TextBlock x:Name="ProgressBarLabel" HorizontalAlignment="Left" Margin="125,527,0,0" TextWrapping="Wrap" Text="Progress Placeholder" VerticalAlignment="Top" Style="{StaticResource CaptionTextBlockStyle}"  Foreground="#FF2982CC"/>
-        <TextBlock x:Name="ErrorLabel" HorizontalAlignment="Left" Margin="125,452,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Style="{StaticResource CaptionTextBlockStyle}" Foreground="Red" Width="111"/>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="0,0,250,0">
+        <Button x:Name="CalcButton" Content="Calculate" HorizontalAlignment="Left" Margin="175,378,0,0" VerticalAlignment="Top" Click="CalcButton_Click"/>
+        <TextBox x:Name="InputText" HorizontalAlignment="Left" Margin="56,341,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="200" InputScope="Digits" PlaceholderText="Upper bound..." TextChanging="InputText_TextChanging"/>
+        <TextBlock x:Name="DescText" HorizontalAlignment="Left" Margin="56,316,0,0" TextWrapping="Wrap" Text="Compute primes up to:" VerticalAlignment="Top"/>
+        <TextBlock x:Name="TitleBlock" HorizontalAlignment="Left" Margin="56,55,0,0" TextWrapping="Wrap" Text="Sieve of Eratosthenes" VerticalAlignment="Top" Style="{StaticResource HeaderTextBlockStyle}"/>
+        <TextBox x:Name="DirPathBox" HorizontalAlignment="Left" Margin="56,238,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="358" PlaceholderText="File path..."/>
+        <CheckBox x:Name="DirCheckBox" HorizontalAlignment="Left" Margin="56,201,0,0" VerticalAlignment="Top" Content="Output to Directory:" Click="DirCheckBox_Click"/>
+        <Button x:Name="BrowseButton" Content="Browse..." HorizontalAlignment="Left" Margin="419,237,0,0" VerticalAlignment="Top" Click="BrowseButton_Click"/>
+        <ProgressBar x:Name="ProgressBarCtrl" HorizontalAlignment="Left" Height="22" Margin="56,469,0,0" VerticalAlignment="Top" Width="358" IsIndeterminate="True"/>
+        <TextBlock x:Name="ProgressBarLabel" HorizontalAlignment="Left" Margin="56,453,0,0" TextWrapping="Wrap" Text="Progress Placeholder" VerticalAlignment="Top" Style="{StaticResource CaptionTextBlockStyle}"  Foreground="#FF2982CC"/>
+        <TextBlock x:Name="ErrorLabel" HorizontalAlignment="Left" Margin="56,378,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Style="{StaticResource CaptionTextBlockStyle}" Foreground="Red" Width="111"/>
         <Image HorizontalAlignment="Left" Height="100" Margin="125,176,0,0" VerticalAlignment="Top" Width="100" Visibility="Collapsed"/>
-        <GridView x:Name="NumberDisplayCtrl" HorizontalAlignment="Left" Height="389" Margin="641,176,0,0" VerticalAlignment="Top" Width="345" BorderBrush="#FF3C8DD1"  BorderThickness="2" Visibility="Visible" CacheMode="BitmapCache">
+        <GridView x:Name="NumberDisplayCtrl" HorizontalAlignment="Left" Height="266" Margin="556,231,0,0" VerticalAlignment="Top" Width="345" BorderBrush="#FF3C8DD1"  BorderThickness="2" Visibility="Visible" CacheMode="BitmapCache">
             <GridViewItem HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"/>
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
@@ -28,6 +28,7 @@
                 </ItemsPanelTemplate>
             </GridView.ItemsPanel>
         </GridView>
-        <TextBlock x:Name="ErrorPathLabel" HorizontalAlignment="Left" Margin="125,349,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Style="{StaticResource CaptionTextBlockStyle}" Foreground="Red" Width="111"/>
+        <TextBlock x:Name="ErrorPathLabel" HorizontalAlignment="Left" Margin="56,275,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Style="{StaticResource CaptionTextBlockStyle}" Foreground="Red" Width="111"/>
+        <TextBlock HorizontalAlignment="Left" Margin="556,206,0,0" TextWrapping="Wrap" Text="Prime Numbers" VerticalAlignment="Top" Width="170"/>
     </Grid>
 </Page>
