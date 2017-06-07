@@ -74,6 +74,20 @@ namespace SEApp
                 return;
             }
 
+            // If all numerics, check if input value is 1e9 or less
+            if( Convert.ToDouble( InputText.Text ) > 1e9 )
+            {
+                ErrorLabel.Visibility = Visibility.Visible;
+                ErrorLabel.Text = "Please enter an integer value less than 1e9.";
+
+                // Run empty task to update gui
+                await Task.Run( () =>
+                {
+                } );
+
+                return;
+            }
+
             // Then check if output path is valid
             if( DirCheckBox.IsChecked.Value && m_outputFolder == null )
             {
@@ -87,9 +101,6 @@ namespace SEApp
             }
             ErrorPathLabel.Visibility = Visibility.Collapsed;
 
-            // Get the user-input value stored in the text box
-            m_inputValue = Convert.ToInt32( InputText.Text );
-
             // Display progress bar and label for calculation
             ProgressBarCtrl.Visibility = Visibility.Visible;
             ProgressBarLabel.Visibility = Visibility.Visible;
@@ -99,6 +110,9 @@ namespace SEApp
             await Task.Run( () =>
             {
             } );
+
+            // Get the user-input value stored in the text box
+            m_inputValue = Convert.ToInt32( InputText.Text );
 
             // Run the improved async segmented Sieve algorithm using the input value
             List<int> primeNums = m_sieve.ComputePrimesSegmentedAsync( m_inputValue );

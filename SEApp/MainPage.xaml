@@ -15,7 +15,7 @@
         <TextBlock x:Name="TitleBlock" HorizontalAlignment="Left" Margin="56,55,0,0" TextWrapping="Wrap" Text="Sieve of Eratosthenes" VerticalAlignment="Top" Style="{StaticResource HeaderTextBlockStyle}"/>
         <TextBox x:Name="DirPathBox" HorizontalAlignment="Left" Margin="56,238,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="358" PlaceholderText="File path..."/>
         <CheckBox x:Name="DirCheckBox" HorizontalAlignment="Left" Margin="56,201,0,0" VerticalAlignment="Top" Content="Output to Directory:" Click="DirCheckBox_Click"/>
-        <Button x:Name="BrowseButton" Content="Browse..." HorizontalAlignment="Left" Margin="419,237,0,0" VerticalAlignment="Top" Click="BrowseButton_Click"/>
+        <Button x:Name="BrowseButton" Content="Browse..." HorizontalAlignment="Left" Margin="419,238,0,0" VerticalAlignment="Top" Click="BrowseButton_Click"/>
         <ProgressBar x:Name="ProgressBarCtrl" HorizontalAlignment="Left" Height="22" Margin="56,469,0,0" VerticalAlignment="Top" Width="358" IsIndeterminate="True"/>
         <TextBlock x:Name="ProgressBarLabel" HorizontalAlignment="Left" Margin="56,453,0,0" TextWrapping="Wrap" Text="Progress Placeholder" VerticalAlignment="Top" Style="{StaticResource CaptionTextBlockStyle}"  Foreground="#FF2982CC"/>
         <TextBlock x:Name="ErrorLabel" HorizontalAlignment="Left" Margin="56,378,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Style="{StaticResource CaptionTextBlockStyle}" Foreground="Red" Width="111"/>
@@ -30,5 +30,6 @@
         </GridView>
         <TextBlock x:Name="ErrorPathLabel" HorizontalAlignment="Left" Margin="56,275,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Style="{StaticResource CaptionTextBlockStyle}" Foreground="Red" Width="111"/>
         <TextBlock HorizontalAlignment="Left" Margin="556,206,0,0" TextWrapping="Wrap" Text="Prime Numbers" VerticalAlignment="Top" Width="170"/>
+        <TextBlock x:Uid="AppDesc" x:Name="DescriptionText" HorizontalAlignment="Left" Margin="56,121,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top"  Style="{StaticResource CaptionTextBlockStyle}" Height="80" Width="396"/>
     </Grid>
 </Page>
