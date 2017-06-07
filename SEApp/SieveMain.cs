@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Threading.Tasks;
 
 namespace SEApp
@@ -11,7 +12,7 @@ namespace SEApp
         {
             List<int> primeNums = new List<int>();
             bool[] markedNums = new bool[maxPrime+1];
-            
+
             // Loop through all numbers starting from 2 to sqrt(n)
             // Only need to go to sqrt(n) since all numbers after sqrt(n) will have been marked already
             int maxPrimeSquareRoot = (int)Math.Floor( Math.Sqrt( maxPrime ) ) + 1;
@@ -119,7 +120,7 @@ namespace SEApp
                 int high = upperBoundSegment;
 
                 //ComputeSegment( primeNums, limit, lowerBoundSegment, upperBoundSegment, maxPrime, ref primeNums );
-                tasks[parallelCount] =  Task.Run( () => 
+                tasks[parallelCount] =  Task.Run( () =>
                     segmentsList.Add( ComputeSegment( primeNumsBefore, limit, low, high, maxPrime ) ) );
 
                 // Only spawn max parallel processes equal to maxProcessors at a time;
@@ -131,7 +132,7 @@ namespace SEApp
                     Task.WaitAll( tasks );
                     foreach( List<int> segment in segmentsList )
                         primeNums.AddRange( segment );
-                    
+
                     // Clear contents in ConcurrentBag<List<int>> segmentsList;
                     List<int> emptyList;
                     while( !segmentsList.IsEmpty )
@@ -156,7 +157,7 @@ namespace SEApp
                     parallelCount = 0;
                     threadsComplete = false;
                 }
-               
+
             }
             // Sort the list since the asnychronous tasks will most likely have inserted the primes out of order
             primeNums.Sort();

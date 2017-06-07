@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -44,6 +46,7 @@ namespace SEApp
             ProgressBarCtrl.Visibility = Visibility.Collapsed;
             ProgressBarLabel.Visibility = Visibility.Collapsed;
             ErrorLabel.Visibility = Visibility.Collapsed;
+            ErrorPathLabel.Visibility = Visibility.Collapsed;
             DirPathBox.IsEnabled = false;
             BrowseButton.IsEnabled = false;
         }
@@ -53,19 +56,36 @@ namespace SEApp
             // Initially hide error label;
             ErrorLabel.Visibility = Visibility.Collapsed;
 
+            // Clear output list view in case any data is present
+            if( NumberDisplayCtrl.Items.Count() > 0 )
+                NumberDisplayCtrl.ItemsSource = null;
+
             // Check first if input string is all numerics
             if( !IsStringAllDigits( InputText.Text ) )
             {
                 ErrorLabel.Visibility = Visibility.Visible;
                 ErrorLabel.Text = "Please enter only numeric digits.";
                 
-                    // Run empty task to update gui
+                // Run empty task to update gui
                 await Task.Run( () =>
                 {
                 } );
 
                 return;
             }
+
+            // Then check if output path is valid
+            if( DirCheckBox.IsChecked.Value && m_outputFolder == null )
+            {
+                ErrorPathLabel.Visibility = Visibility.Visible;
+                ErrorPathLabel.Text = "Please specify a valid folder.";
+                // Run empty task to update gui
+                await Task.Run( () =>
+                {
+                } );
+                return;
+            }
+            ErrorPathLabel.Visibility = Visibility.Collapsed;
 
             // Get the user-input value stored in the text box
             m_inputValue = Convert.ToInt32( InputText.Text );
@@ -82,6 +102,10 @@ namespace SEApp
 
             // Run the improved async segmented Sieve algorithm using the input value
             List<int> primeNums = m_sieve.ComputePrimesSegmentedAsync( m_inputValue );
+
+            // Display all prime numbers to the display control
+            NumberDisplayCtrl.ItemsSource = primeNums;
+
 
             // If the DirCheckBox is checked, output data to text file in file path
             if( DirCheckBox.IsChecked.Value )
@@ -101,6 +125,7 @@ namespace SEApp
                     }
                 }
             }
+
 
             // Hide progress bar and label when calculation and output is completed
             ProgressBarLabel.Text = "Completed!";
@@ -130,7 +155,6 @@ namespace SEApp
         }
 
         // Async method for picking a folder to store the output to
-
         private async void BrowseButton_Click( object sender, RoutedEventArgs e )
         {
             // Create a file picker
@@ -180,4 +204,5 @@ namespace SEApp
 
 
     }
+    
 }

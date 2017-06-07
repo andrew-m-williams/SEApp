@@ -1,10 +1,11 @@
 ﻿<Page
-    x:Class="SEApp.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:SEApp"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:System="using:System"
+    x:Class="SEApp.MainPage"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -15,10 +16,18 @@
         <TextBox x:Name="DirPathBox" HorizontalAlignment="Left" Margin="125,312,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="360" PlaceholderText="File path..."/>
         <CheckBox x:Name="DirCheckBox" HorizontalAlignment="Left" Margin="125,275,0,0" VerticalAlignment="Top" Content="Output to Directory:" Click="DirCheckBox_Click"/>
         <Button x:Name="BrowseButton" Content="Browse..." HorizontalAlignment="Left" Margin="490,312,0,0" VerticalAlignment="Top" Click="BrowseButton_Click"/>
-        <TextBlock HorizontalAlignment="Left" Margin="125,452,0,0" TextWrapping="Wrap" Text="Error Message when non integer" VerticalAlignment="Top" Width="114" Style="{StaticResource CaptionTextBlockStyle}" Foreground="Red" Visibility="Collapsed"/>
         <ProgressBar x:Name="ProgressBarCtrl" HorizontalAlignment="Left" Height="22" Margin="125,543,0,0" VerticalAlignment="Top" Width="443" IsIndeterminate="True"/>
         <TextBlock x:Name="ProgressBarLabel" HorizontalAlignment="Left" Margin="125,527,0,0" TextWrapping="Wrap" Text="Progress Placeholder" VerticalAlignment="Top" Style="{StaticResource CaptionTextBlockStyle}"  Foreground="#FF2982CC"/>
         <TextBlock x:Name="ErrorLabel" HorizontalAlignment="Left" Margin="125,452,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Style="{StaticResource CaptionTextBlockStyle}" Foreground="Red" Width="111"/>
-
+        <Image HorizontalAlignment="Left" Height="100" Margin="125,176,0,0" VerticalAlignment="Top" Width="100" Visibility="Collapsed"/>
+        <GridView x:Name="NumberDisplayCtrl" HorizontalAlignment="Left" Height="389" Margin="641,176,0,0" VerticalAlignment="Top" Width="345" BorderBrush="#FF3C8DD1"  BorderThickness="2" Visibility="Visible" CacheMode="BitmapCache">
+            <GridViewItem HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch"/>
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid MaximumRowsOrColumns="3" Orientation="Horizontal" ItemWidth="100"/>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+        </GridView>
+        <TextBlock x:Name="ErrorPathLabel" HorizontalAlignment="Left" Margin="125,349,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Style="{StaticResource CaptionTextBlockStyle}" Foreground="Red" Width="111"/>
     </Grid>
 </Page>
