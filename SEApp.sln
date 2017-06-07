@@ -51,8 +51,6 @@ Global
 		{18EEF354-FD1E-4B4E-BD36-CA1A0ABFA278}.Release|x64.Build.0 = Release|x64
 		{18EEF354-FD1E-4B4E-BD36-CA1A0ABFA278}.Release|x64.Deploy.0 = Release|x64
 		{18EEF354-FD1E-4B4E-BD36-CA1A0ABFA278}.Release|x86.ActiveCfg = Release|x86
-		{18EEF354-FD1E-4B4E-BD36-CA1A0ABFA278}.Release|x86.Build.0 = Release|x86
-		{18EEF354-FD1E-4B4E-BD36-CA1A0ABFA278}.Release|x86.Deploy.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

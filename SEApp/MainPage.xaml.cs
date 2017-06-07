@@ -126,12 +126,16 @@ namespace SEApp
             {
                 ProgressBarLabel.Text = "Writing data to file...";
                 string timeStamp = DateTime.Now.ToString( "yyyyMMddHHmmss" );
-                string fileName = "outputData_" + timeStamp + ".txt";
+                string fileName = "outputData_" + InputText.Text + "_" + timeStamp + ".txt";
                 StorageFile file = await m_outputFolder.CreateFileAsync( fileName );
 
                 // Instantiate a new stream write, convert int to string, and write out lines
                 using( StreamWriter sw = new StreamWriter( file.OpenStreamForWriteAsync().Result ) )
                 {
+                    string headerLine = "Prime numbers generated up to: " + InputText.Text;
+                    await sw.WriteAsync( headerLine );
+                    await sw.WriteAsync( Environment.NewLine );
+
                     foreach( int num in primeNums )
                     {
                         string line = num.ToString() + Environment.NewLine;
